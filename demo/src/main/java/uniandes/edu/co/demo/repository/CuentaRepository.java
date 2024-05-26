@@ -12,8 +12,8 @@ import uniandes.edu.co.demo.modelo.Cuenta;
 public interface CuentaRepository extends MongoRepository<Cuenta, Integer>{
 
     @Query("{_id: ?0}")
-        List<Cuenta> buscarPorId(int id);
+        List<Cuenta> buscarPorId(Integer id);
     @Query("{_id: ?0}")
         @Update("{$set:{estado:'cerrado'}}")
-        void cambiarEstadoACerrado(int id_cuenta);
+        void cambiarEstadoACerrado(Integer id_cuenta);
 }

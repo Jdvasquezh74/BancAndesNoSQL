@@ -1,5 +1,6 @@
 package uniandes.edu.co.demo.modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -25,11 +26,11 @@ public class Cuenta {
         this.id = ++contadorGlobal; // Incrementar el contador y asignarlo como ID
     }
 
-    public Cuenta (Integer saldo, String fechaultimaoperacion, String estado,List<Long> operaciones){
+    public Cuenta (Integer saldo){
         this.saldo = saldo;
-        this.fechaultimaoperacion = fechaultimaoperacion;
-        this.estado = estado;
-        this.operaciones = operaciones;
+        this.fechaultimaoperacion = null;
+        this.estado = "activada";
+        this.operaciones = new ArrayList<>();
         this.id = ++contadorGlobal; // Incrementar el contador y asignarlo como ID
     }
 
