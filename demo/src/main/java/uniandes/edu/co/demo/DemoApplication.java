@@ -1,18 +1,17 @@
-package uniandes.edu.co.demo;
-
+package  uniandes.edu.co.demo;
 
 import java.util.List;
 import java.util.Scanner;
-
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-
 import uniandes.edu.co.demo.modelo.Cuenta;
+import uniandes.edu.co.demo.modelo.Usuario;
 import uniandes.edu.co.demo.repository.CuentaRepository;
+import uniandes.edu.co.demo.repository.UsuarioRepository;
 
 @ComponentScan({"uniandes.edu.co.demo.repository"})
 @SpringBootApplication
@@ -21,12 +20,15 @@ public class DemoApplication implements CommandLineRunner {
     @Autowired
     private CuentaRepository cuentaRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }
 
     @Override
-    public void run(String... strings) throws Exception {
+    public void run(String... args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         int opcion;
 
@@ -62,7 +64,6 @@ public class DemoApplication implements CommandLineRunner {
             }
         } while (opcion != 0);
 
-        // Cerrar el Scanner después de salir del bucle
         scanner.close();
     }
 
@@ -84,17 +85,51 @@ public class DemoApplication implements CommandLineRunner {
         String idCuentaString = scanner.next();
         ObjectId idCuenta = new ObjectId(idCuentaString);
 
-        List<Cuenta> res = cuentaRepository.buscarPorId(idCuenta);
+        Cuenta cuenta = cuentaRepository.findById(idCuenta).orElse(null);
 
-        if (res.isEmpty()) {
+        if (cuenta == null) {
             System.out.println("No se encontraron cuentas con el ID proporcionado.");
         } else {
-            System.out.println("Cuenta(s) encontrada(s) con el ID " + idCuenta + ":");
-            for (Cuenta cuenta : res) {
-                System.out.println(cuenta);
-            }
+            System.out.println("Cuenta encontrada con el ID " + idCuenta + ":");
+            System.out.println(cuenta);
         }
     }
+
+    public void crearCuenta(Scanner scanner) {
+        System.out.println("Ingrese el saldo inicial:");
+        int saldoInicial = scanner.nextInt();
+    
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        if (usuarios.isEmpty()) {
+            System.out.println("No hay usuarios disponibles.");
+            return;
+        }
+    
+        System.out.println("Seleccione el ID del usuario asociado:");
+        for (Usuario usuario : usuarios) {
+            System.out.println(usuario.getId() + ": " + usuario.getNombre());
+        }
+    
+        String idUsuarioString = scanner.next();
+        ObjectId idUsuario = new ObjectId(idUsuarioString);
+    
+        Usuario usuarioSeleccionado = usuarioRepository.findById(idUsuario).orElse(null);
+        if (usuarioSeleccionado == null) {
+            System.out.println("Usuario no encontrado.");
+            return;
+        }
+    
+        // Crear la nueva cuenta
+        Cuenta nuevaCuenta = new Cuenta(saldoInicial, usuarioSeleccionado);
+        cuentaRepository.save(nuevaCuenta);
+        System.out.println("Cuenta creada: " + nuevaCuenta);
+    
+        // Agregar la nueva cuenta al array de cuentas del usuario seleccionado
+        usuarioSeleccionado.getCuentas().add(nuevaCuenta.getId());
+        usuarioRepository.save(usuarioSeleccionado);
+        System.out.println("Cuenta añadida al usuario: " + usuarioSeleccionado);
+    }
+    
 
     public void cambiarEstadoACerrado(Scanner scanner) {
         System.out.println("Ingrese el ID de la cuenta que desea cerrar:");
@@ -103,17 +138,5 @@ public class DemoApplication implements CommandLineRunner {
 
         cuentaRepository.cambiarEstadoACerrado(idCuenta);
         System.out.println("El estado de la cuenta con ID " + idCuenta + " se ha cambiado a 'cerrado'.");
-    }
-
-    public void crearCuenta(Scanner scanner) {
-        System.out.println("Ingrese el saldo inicial:");
-        int saldoInicial = scanner.nextInt();
-
-        Cuenta nuevaCuenta = new Cuenta(
-            saldoInicial
-        );
-
-        cuentaRepository.save(nuevaCuenta);
-        System.out.println("Cuenta creada: " + nuevaCuenta);
     }
 }

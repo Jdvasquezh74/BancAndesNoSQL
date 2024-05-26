@@ -14,6 +14,7 @@ public class Cuenta {
 
     private ObjectId id;
     private Integer saldo;
+    private Usuario clienteasociado;
     private String fechaultimaoperacion;
     private String estado;
     private List<ObjectId> operaciones;  // Cambiar aquí
@@ -21,8 +22,9 @@ public class Cuenta {
     public Cuenta() {
     }
 
-    public Cuenta(Integer saldo) {
+    public Cuenta(Integer saldo, Usuario clienteasociado) {
         this.saldo = saldo;
+        this.clienteasociado = clienteasociado;
         this.fechaultimaoperacion = null;
         this.estado = "activada";
         this.operaciones = new ArrayList<>();
