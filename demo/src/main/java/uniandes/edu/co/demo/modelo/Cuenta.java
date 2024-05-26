@@ -3,7 +3,7 @@ package uniandes.edu.co.demo.modelo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.ToString;
@@ -12,33 +12,27 @@ import lombok.ToString;
 @ToString
 public class Cuenta {
 
-    private static long contadorGlobal = 0; // Contador global
-
-    @Id
-    private long id;
-
+    private ObjectId id;
     private Integer saldo;
     private String fechaultimaoperacion;
     private String estado;
-    private List<Long> operaciones;
+    private List<ObjectId> operaciones;  // Cambiar aquí
 
-    public Cuenta(){
-        this.id = ++contadorGlobal; // Incrementar el contador y asignarlo como ID
+    public Cuenta() {
     }
 
-    public Cuenta (Integer saldo){
+    public Cuenta(Integer saldo) {
         this.saldo = saldo;
         this.fechaultimaoperacion = null;
         this.estado = "activada";
         this.operaciones = new ArrayList<>();
-        this.id = ++contadorGlobal; // Incrementar el contador y asignarlo como ID
     }
 
-    public long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -66,16 +60,11 @@ public class Cuenta {
         this.estado = estado;
     }
 
-    public void setOperaciones(List<Long> operaciones){
-        this.operaciones = operaciones;
-    }
-
-    public List<Long> getOperaciones(){
+    public List<ObjectId> getOperaciones() {  // Cambiar aquí
         return operaciones;
     }
 
-    // Método estático para obtener el contador global
-    public static long getContadorGlobal() {
-        return contadorGlobal;
+    public void setOperaciones(List<ObjectId> operaciones) {  // Cambiar aquí
+        this.operaciones = operaciones;
     }
 }

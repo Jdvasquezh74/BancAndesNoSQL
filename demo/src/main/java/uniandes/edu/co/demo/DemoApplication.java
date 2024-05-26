@@ -4,6 +4,7 @@ package uniandes.edu.co.demo;
 import java.util.List;
 import java.util.Scanner;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -80,7 +81,8 @@ public class DemoApplication implements CommandLineRunner {
 
     public void buscarCuentaPorId(Scanner scanner) {
         System.out.println("Ingrese el ID de la cuenta:");
-        Integer idCuenta = scanner.nextInt();
+        String idCuentaString = scanner.next();
+        ObjectId idCuenta = new ObjectId(idCuentaString);
 
         List<Cuenta> res = cuentaRepository.buscarPorId(idCuenta);
 
@@ -96,7 +98,8 @@ public class DemoApplication implements CommandLineRunner {
 
     public void cambiarEstadoACerrado(Scanner scanner) {
         System.out.println("Ingrese el ID de la cuenta que desea cerrar:");
-        Integer idCuenta = scanner.nextInt();
+        String idCuentaString = scanner.next();
+        ObjectId idCuenta = new ObjectId(idCuentaString);
 
         cuentaRepository.cambiarEstadoACerrado(idCuenta);
         System.out.println("El estado de la cuenta con ID " + idCuenta + " se ha cambiado a 'cerrado'.");
