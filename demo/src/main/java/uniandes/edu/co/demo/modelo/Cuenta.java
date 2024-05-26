@@ -1,6 +1,6 @@
 package uniandes.edu.co.demo.modelo;
 
-import java.sql.Timestamp;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -11,52 +11,34 @@ import lombok.ToString;
 @ToString
 public class Cuenta {
 
+    private static long contadorGlobal = 0; // Contador global
+
     @Id
     private long id;
 
-    private String tipo;
-    private Integer id_cliente;
     private Integer saldo;
-    private Timestamp fecha_ultima_transaccion;
+    private String fechaultimaoperacion;
     private String estado;
-    private Long oficina;
+    private List<Long> operaciones;
 
     public Cuenta(){
-        ;
+        this.id = ++contadorGlobal; // Incrementar el contador y asignarlo como ID
     }
 
-    public Cuenta (String tipo, Integer id_cliente, Integer saldo, Timestamp fecha_ultima_transaccion, String estado,Long oficina){
-        this.tipo = tipo;
-        this.id_cliente = id_cliente;
+    public Cuenta (Integer saldo, String fechaultimaoperacion, String estado,List<Long> operaciones){
         this.saldo = saldo;
-        this.fecha_ultima_transaccion = fecha_ultima_transaccion;
+        this.fechaultimaoperacion = fechaultimaoperacion;
         this.estado = estado;
-        this.oficina = oficina;
+        this.operaciones = operaciones;
+        this.id = ++contadorGlobal; // Incrementar el contador y asignarlo como ID
     }
 
-   
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public Integer getId_cliente() {
-        return id_cliente;
-    }
-
-    public void setId_cliente(Integer id_cliente) {
-        this.id_cliente = id_cliente;
     }
 
     public Integer getSaldo() {
@@ -67,12 +49,12 @@ public class Cuenta {
         this.saldo = saldo;
     }
 
-    public Timestamp getFecha_ultima_transaccion() {
-        return fecha_ultima_transaccion;
+    public String getFechaultimaoperacion() {
+        return fechaultimaoperacion;
     }
 
-    public void setFecha_ultima_transaccion(Timestamp fecha_ultima_transaccion) {
-        this.fecha_ultima_transaccion = fecha_ultima_transaccion;
+    public void setFechaultimaoperacion(String fechaultimaoperacion) {
+        this.fechaultimaoperacion = fechaultimaoperacion;
     }
 
     public String getEstado() {
@@ -82,11 +64,17 @@ public class Cuenta {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    public void setOficina(Long oficina){
-        this.oficina = oficina;
+
+    public void setOperaciones(List<Long> operaciones){
+        this.operaciones = operaciones;
     }
 
-    public Long getOficina(){
-        return oficina;
+    public List<Long> getOperaciones(){
+        return operaciones;
+    }
+
+    // Método estático para obtener el contador global
+    public static long getContadorGlobal() {
+        return contadorGlobal;
     }
 }
