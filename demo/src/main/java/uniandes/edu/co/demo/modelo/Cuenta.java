@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.persistence.Id;
@@ -32,7 +31,6 @@ public class Cuenta {
     public Cuenta(Integer saldo, Usuario clienteasociado, Oficina oficinacreacion, String tipo) {
         this.saldo = saldo;
         this.clienteasociado = clienteasociado;
-        this.clienteasociado = clienteasociado;
         this.fechaultimaoperacion = null;
         this.estado = "activada";
         this.operaciones = new ArrayList<>();
@@ -41,11 +39,9 @@ public class Cuenta {
     }
 
     public ObjectId getId() {
-    public ObjectId getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
     public void setId(ObjectId id) {
         this.id = id;
     }
