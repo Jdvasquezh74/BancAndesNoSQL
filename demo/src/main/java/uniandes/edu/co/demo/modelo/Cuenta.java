@@ -3,50 +3,70 @@ package uniandes.edu.co.demo.modelo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import jakarta.persistence.Id;
 import lombok.ToString;
 
 @Document(collection="cuentas")
 @ToString
 public class Cuenta {
 
-    private static long contadorGlobal = 0; // Contador global
-
     @Id
-    private long id;
-
-    private Integer saldo;
+    private ObjectId id;
+    private String tipo;
+    private Usuario clienteasociado;
+    private float saldo;
     private String fechaultimaoperacion;
     private String estado;
-    private List<Long> operaciones;
+    private List<ObjectId> operaciones; 
+    private Oficina oficinaCreacion;
 
-    public Cuenta(){
-        this.id = ++contadorGlobal; // Incrementar el contador y asignarlo como ID
+
+    public Cuenta() {
+        ;
     }
 
-    public Cuenta (Integer saldo){
+    public Cuenta(Integer saldo, Usuario clienteasociado, Oficina oficinacreacion, String tipo) {
         this.saldo = saldo;
+        this.clienteasociado = clienteasociado;
         this.fechaultimaoperacion = null;
         this.estado = "activada";
         this.operaciones = new ArrayList<>();
-        this.id = ++contadorGlobal; // Incrementar el contador y asignarlo como ID
+        this.oficinaCreacion = oficinacreacion;
+        this.tipo = tipo;
     }
 
-    public long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
-    public Integer getSaldo() {
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public Usuario getClienteasociado() {
+        return clienteasociado;
+    }
+
+    public void setClienteasociado(Usuario clienteasociado) {
+        this.clienteasociado = clienteasociado;
+    }
+
+    public float getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(Integer saldo) {
+    public void setSaldo(float saldo) {
         this.saldo = saldo;
     }
 
@@ -66,16 +86,21 @@ public class Cuenta {
         this.estado = estado;
     }
 
-    public void setOperaciones(List<Long> operaciones){
-        this.operaciones = operaciones;
-    }
-
-    public List<Long> getOperaciones(){
+    public List<ObjectId> getOperaciones() {
         return operaciones;
     }
 
-    // Método estático para obtener el contador global
-    public static long getContadorGlobal() {
-        return contadorGlobal;
+    public void setOperaciones(List<ObjectId> operaciones) {
+        this.operaciones = operaciones;
     }
+
+    public Oficina getOficinaCreacion() {
+        return oficinaCreacion;
+    }
+
+    public void setOficinaCreacion(Oficina oficinaCreacion) {
+        this.oficinaCreacion = oficinaCreacion;
+    }
+
+   
 }

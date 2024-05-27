@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Cuenta</title>
+</head>
+<body>
+    <h1 class="text-center">Editar Cuenta</h1>
+    <form th:action="@{/cuentas/edit/save}" th:object="${cuenta}" method="post">
+        <label for="id">Seleccionar cuenta:</label>
+        <select class="form-control" id="id" name="id" required>
+            <option th:each="cuenta : ${cuentas}" th:value="${cuenta.id}" th:text="${cuenta.id}"></option>
+        </select>
+        <label for="estado">Estado:</label>
+        <select class="form-control" id="estado" name="estado" required>
+            <option value="activada">Activada</option>
+            <option value="desactivada">Desactivada</option>
+        </select>
+        <br>
+        <div class="text-center">
+            <input type="submit" value="Guardar">
+        </div>
+    </form>
+</body>
+</html>

@@ -7,7 +7,8 @@
     <h1>Bienvenido, <span th:text="${nombreUsuario}"></span>!</h1>
     <h2>Haz iniciado sesión como <span th:text="${rol}"></span></h2>
     
-
+    <!-- Opciones para el administrador -->
+    <div>
         <ul>
             <li><a th:href="@{/usuarios/new}" class="btn btn-primary">Agregar Usuario empleado</a></li>
             <li><a th:href="@{/oficinas/new}">Crear oficina</a></li>
@@ -17,39 +18,25 @@
         </ul>
     </div>
 
-    
+    <div>
         <ul>
             <li><a th:href="@{/usuarios/new}" class="btn btn-primary">Agregar usuario cliente</a></li>
             <li><a th:href="@{/cuentas/new}" class="btn btn-primary">Apertura de una cuenta</a></li>
             <li><a th:href="@{/cuentas/edit}" class="btn btn-primary">Actualizar estado de una cuenta</a></li>
-            <li><a th:href="@{/prestamos/new}" class="btn btn-primary">Apertura de un prestamo</a></li>
-            <li><a th:href="@{/prestamos/edit}" class="btn btn-primary">Actualizar estado de un prestamo</a></li>
-            <li><a th:href="@{'/'+ ${id} + '/cuentas'}" class="btn btn-primary">Consultar cuentas</a></li>
-            <li><a th:href="@{'/'+ ${id} + '/users'}" class="btn btn-primary">Consultar informacion general de clientes de mí oficina</a></li>
-
-
-
-
             
         </ul>
     </div>
 
-    
+    <div>
         <ul>
 
-            <li><a th:href="@{'/'+ ${id} + '/cuentas'}" class="btn btn-primary">Consultar cuentas</a></li>
-
-            <li><a th:href="@{'/'+ ${id} + '/users'}" class="btn btn-primary">Consultar información general de clientes</a></li>
-
-
-
 
             
         </ul>
     </div>
 
     
-  
+    <div>
         <ul>
             <li><a th:href="@{/operacionesbancarias/new}" class="btn btn-primary">Registrar operación sobre una cuenta </a></li>
 
@@ -57,13 +44,6 @@
 
             <li><a th:href="@{'/'+ ${id} + '/users'}" class="btn btn-primary">Consultar información </a></li>
 
-        </ul>
-    </div>
-
-   
-        <ul>
-            <li><a th:href="@{/operacionesbancarias/new}" class="btn btn-primary">Registrar operación sobre una cuenta </a></li>
-            <li><a th:href="@{/operacionesprestamo/new}" class="btn btn-primary">Registrar operación sobre un prestamo </a></li>
         </ul>
     </div>
 

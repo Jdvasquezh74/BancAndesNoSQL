@@ -2,18 +2,17 @@ package uniandes.edu.co.demo.modelo;
 
 import java.util.List;
 
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 
-import jakarta.persistence.Id;
 import lombok.ToString;
 
 
-@Document(collection = "puntosAtencion")
 @ToString
 public class PuntoAtencion {
 
     @Id
-    private long id;
+    private ObjectId id;
 
     private String tipo;
 
@@ -21,7 +20,8 @@ public class PuntoAtencion {
 
     private Float longitud;
 
-    private Oficina oficinaasociada;
+    private ObjectId oficinaasociada;
+
 
     private List<String> operaciones;
 
@@ -31,21 +31,32 @@ public class PuntoAtencion {
     }
 
 
-    public PuntoAtencion(long id, String tipo, Float latitud, Float longitud, List<String> operaciones) {
+    public PuntoAtencion(ObjectId id, String tipo, Float latitud, Float longitud, List<String> operaciones,ObjectId oficinaasociada) {
         this.id = id;
         this.tipo = tipo;
         this.latitud = latitud;
         this.longitud = longitud;
         this.operaciones = operaciones;
+        this.oficinaasociada = oficinaasociada;
     }
 
 
-    public long getId() {
+    public ObjectId getOficinaAsociada() {
+        return oficinaasociada;
+    }
+
+
+    public void setOficinaAsociada(ObjectId oficinaasociada) {
+        this.oficinaasociada = oficinaasociada;
+    }
+
+
+    public ObjectId getId() {
         return id;
     }
 
 
-    public void setId(long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -77,16 +88,6 @@ public class PuntoAtencion {
 
     public void setLongitud(Float longitud) {
         this.longitud = longitud;
-    }
-
-
-    public Oficina getOficinaasociada() {
-        return oficinaasociada;
-    }
-
-
-    public void setOficinaasociada(Oficina oficinaasociada) {
-        this.oficinaasociada = oficinaasociada;
     }
 
 

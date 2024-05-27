@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retiro Bancario</title>
+</head>
+<body>
+    <form th:action="@{/operacionesbancarias/new/save}" th:object="${operacionBancaria}" method="post">
+        <label for="monto">Monto a retirar:</label>
+        <input type="number" name="monto" id="monto" step="0.01" min="1" th:field="${operacionBancaria.monto}">
+        
+        <label for="cuentaafectada">Cuenta Afectada: </label>
+        <select class="form-control" id="cuentaafectada" name="cuentaafectada" required>
+            <option th:each="cuenta : ${cuentas}" th:value="${cuenta.id}" th:text="${cuenta.id}"></option>
+        </select>
+        <input type="hidden" name="tipooperacion"  value="retiro">
+
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

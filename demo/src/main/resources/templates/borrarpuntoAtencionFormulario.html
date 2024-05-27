@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Puntos de Atención</title>
+</head>
+<body>
+    <h1>Puntos de Atención</h1>
+    <ul>
+        <li th:each="oficina : ${puntosAtencionIds}">
+            Oficina ID: <span th:text="${oficina.id}"></span> 
+            <ul>
+                <li th:each="punto : ${oficina.puntosatencion}">
+                    Punto de atención ID: <span th:text="${punto.id}"></span> 
+                    <a th:href="@{'/puntosAtencion/' + ${punto.id} + '/delete'}"
+                       onclick="return confirm('¿Estás seguro de borrar este punto de atención?')">
+
+                      Borrar
+                    </a>
+                    
+                    
+                    
+                </li>
+            </ul>
+        </li>
+    </ul>
+</body>
+</html>

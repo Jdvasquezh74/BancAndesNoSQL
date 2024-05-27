@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulario de Cuenta</title>
+</head>
+<body>
+    
+<br>
+<div>    
+    <h1 class="text-center" th:text="${titulo}"></h1>
+    <form action="#" th:action="@{/cuentas/new/save}" th:object="${cuenta}" method="post">
+
+        <label for="tipo">Tipo: </label>
+        <select id="tipo" name="tipo" th:field="*{tipo}" required>
+            <option value="ahorros">ahorros</option>
+            <option value="corriente">corriente</option>
+            <option value="afc">afc</option>
+
+        </select>
+        
+
+        <label for="clienteasociado">ID Cliente: </label>
+        <select class="form-control" id="clienteasociado" name="clienteasociado" required>
+            <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.id}"></option>
+        </select>
+        
+        <label for="saldo">Saldo:</label>
+        <input type="number" id="saldo" name="saldo" th:field="*{saldo}" required />
+        
+        
+        
+        
+        <label for="estado">Estado</label>
+        <select id="estado" name="estado" th:field="*{estado}" required>
+            <option value="activada">activada</option>
+            <option value="desactivada">desactivada</option>
+        </select>
+
+
+        
+        <label for="oficina">Oficina apertura: </label>
+        <select class="form-control" id="oficina" name="oficina" required>
+            <option th:each="oficina : ${oficinas}" th:value="${oficina.id}" th:text="${oficina.id}"></option>
+        </select>
+
+
+        <br>
+        <div class="text-center">
+            <input type="submit" value="Guardar">
+        </div>
+        
+    </form>
+   
+</div>
+
+</body>
+</html>

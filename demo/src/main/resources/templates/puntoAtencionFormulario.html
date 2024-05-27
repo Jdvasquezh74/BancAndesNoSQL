@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario puntoAtencion</title>
+</head>
+<body>
+    <br>
+    <div>
+        <form th:action="@{/puntosAtencion/new/save}" th:object="${puntoAtencion}" method="post">
+            <label for="tipo">Tipo: </label>
+            <select id="tipo" name="tipo" th:field="*{tipo}" required>
+                
+                <option value="atencionPersonalizada">Atención personalizada</option>
+                <option value="cajeroAutomatico">Cajero Automático</option>
+                <option value="canalDigital">Canal Digital</option>
+            </select>
+            
+            
+            <label for="latitud"> Latitud:  </label>
+            <input type="text" id="latitud" name="latitud" th:field="*{latitud}" required>
+            
+            
+            <label for="longitud"> Longitud:  </label>
+            <input type="text" id="longitud" name="longitud" th:field="*{longitud}" required>
+
+            <label for="oficinaasociada">ID oficina asociada: </label>
+            <select class="form-control" th:field="${puntoAtencion.oficinaAsociada}">
+                <option th:each="oficina : ${oficinas}" th:value="${oficina.id}" th:text="${oficina.id}" ></option>
+            </select>
+            
+        <div>
+            <input type="submit" value="Guardar">
+        </div>    
+        </form>
+    </div>
+</body>
+</html>

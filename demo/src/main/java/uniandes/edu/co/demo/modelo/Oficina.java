@@ -2,7 +2,9 @@ package uniandes.edu.co.demo.modelo;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
+import org.bson.types.ObjectId; 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,21 +14,25 @@ import lombok.ToString;
 @ToString
 public class Oficina {
     @Id
-    private Integer id;
+    private ObjectId id; 
     private String nombre;
     private String direccion;
     private Integer cantidadpuntosatencion;
-    private long idgerenteoficina;
-    private String horaapertura; 
-    private String horacierre;   
+    private ObjectId idgerenteoficina;
+    private String horaapertura;
+    private String horacierre;
+    
+
 
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
 
+    private List<PuntoAtencion> puntosatencion;
+    
     public Oficina() {
         ;
     }
 
-    public Oficina(String nombre, String direccion, Integer cantidadpuntosatencion, long idgerenteoficina,
+    public Oficina(String nombre, String direccion, Integer cantidadpuntosatencion, ObjectId idgerenteoficina,
                    LocalTime horaapertura, LocalTime horacierre) {
         this.nombre = nombre;
         this.direccion = direccion;
@@ -36,11 +42,11 @@ public class Oficina {
         this.horacierre = horacierre.format(TIME_FORMATTER);
     }
 
-    public Integer getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -68,27 +74,39 @@ public class Oficina {
         this.cantidadpuntosatencion = cantidadpuntosatencion;
     }
 
-    public long getIdgerenteoficina() {
+    public ObjectId getIdgerenteoficina() {
         return idgerenteoficina;
     }
 
-    public void setIdgerenteoficina(long idgerenteoficina) {
+    public void setIdgerenteoficina(ObjectId idgerenteoficina) {
         this.idgerenteoficina = idgerenteoficina;
     }
 
-    public LocalTime getHoraapertura() {
-        return LocalTime.parse(horaapertura, TIME_FORMATTER);
+    public String getHoraapertura() {
+        return horaapertura;
     }
 
-    public void setHoraapertura(LocalTime horaapertura) {
-        this.horaapertura = horaapertura.format(TIME_FORMATTER);
+    public void setHoraapertura(String horaapertura) {
+        this.horaapertura = horaapertura;
     }
 
-    public LocalTime getHoracierre() {
-        return LocalTime.parse(horacierre, TIME_FORMATTER);
+    public String getHoracierre() {
+        return horacierre;
     }
 
-    public void setHoracierre(LocalTime horacierre) {
-        this.horacierre = horacierre.format(TIME_FORMATTER);
+    public void setHoracierre(String horacierre) {
+    this.horacierre = horacierre;
+}
+
+    public static DateTimeFormatter getTimeFormatter() {
+        return TIME_FORMATTER;
+    }
+
+    public List<PuntoAtencion> getPuntosatencion() {
+        return puntosatencion;
+    }
+
+    public void setPuntosatencion(List<PuntoAtencion> puntosatencion) {
+        this.puntosatencion = puntosatencion;
     }
 }

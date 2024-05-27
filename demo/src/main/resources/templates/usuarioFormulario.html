@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulario de Usuario</title>
+</head>
+<body>
+    
+<br>
+<div>    
+    <h1 class="text-center" th:text="${titulo}"></h1>
+    <form action="#" th:action="@{/usuarios/new/save}" th:object="${usuario}" method="post">
+
+        <label for="login">Login:</label>
+        <input type="text" id="login" name="login" th:field="*{login}" required />
+        
+        <label for="clave">Clave:</label>
+        <input type="text" id="clave" name="clave" th:field="*{clave}" required />
+        
+        <label for="numeroidentificacion">Número de Identificación:</label>
+        <input type="text" id="numeroidentificacion" name="numeroidentificacion" th:field="*{numeroidentificacion}" required />
+        
+        <label for="tipoidentificacion">Tipo de Identificación:</label>
+        <select id="tipoidentificacion" name="tipoidentificacion" th:field="*{tipoidentificacion}" required>
+            <option value="cc">Cédula de Ciudadanía</option>
+            <option value="pasaporte">Pasaporte</option>
+        </select>
+        
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" th:field="*{nombre}" required />
+
+        <label for="rol">Rol:</label>
+        <select id="rol" name="rol" th:field="*{rol}" required>
+            <option value="gerenteoficina">Gerente de Oficina</option>
+            <option value="gerentegeneral">Gerente General</option>
+            <option value="cajero">Cajero</option>
+        </select>
+        
+        <label for="nacionalidad">Nacionalidad:</label>
+        <input type="text" id="nacionalidad" name="nacionalidad" th:field="*{nacionalidad}" required />
+        
+        <label for="direccionfisica">Dirección Física:</label>
+        <input type="text" id="direccionfisica" name="direccionfisica" th:field="*{direccionfisica}" required />
+        
+        <label for="direccionelectronica">Dirección Electrónica:</label>
+        <input type="text" id="direccionelectronica" name="direccionelectronica" th:field="*{direccionelectronica}" required />
+        
+        <label for="telefono">Teléfono:</label>
+        <input type="number" id="telefono" name="telefono" th:field="*{telefono}" required />
+        
+        <label for="ciudad">Ciudad:</label>
+        <input type="text" id="ciudad" name="ciudad" th:field="*{ciudad}" required />
+        
+        <label for="departamento">Departamento:</label>
+        <input type="text" id="departamento" name="departamento" th:field="*{departamento}" required />
+        
+        <label for="codigopostal">Código Postal:</label>
+        <input type="text" id="codigopostal" name="codigopostal" th:field="*{codigopostal}" required />
+        
+        <input type="hidden" id="esempleado" name="esempleado" th:value="true" />
+        <input type="hidden" id="escliente" name="escliente" th:value="false" />
+
+        <br>
+        <div class="text-center">
+            <input type="submit" value="Guardar">
+        </div>
+        
+    </form>
+</div>
+
+</body>
+</html>
