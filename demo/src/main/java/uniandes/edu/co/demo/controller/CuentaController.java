@@ -1,6 +1,9 @@
 package uniandes.edu.co.demo.controller;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -127,7 +130,7 @@ public class CuentaController {
      
         System.out.println(id);
         System.out.println(fecha);
-// Convertir la cadena a objeto Date
+        // Convertir la cadena a objeto Date
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             Date fechaInicial;
             try {
