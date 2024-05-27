@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Operaciones Bancarias</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Lista de Operaciones Bancarias usando read commited</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ID de Cuenta</th>
+                    <th>ID de Cliente</th>
+                    <th>Fecha y Hora</th>
+                    <th>Tipo de Operación</th>
+                    <th>Monto</th>
+                    <th>ID de Destino</th>
+                    <th>Puesto de Atención</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="operacion : ${operaciones}">
+                    <td th:text="${operacion.id}"></td>
+                    <td th:text="${operacion.idcuenta}"></td>
+                    <td th:text="${operacion.idcliente}"></td>
+                    <td th:text="${operacion.fechahora}"></td>
+                    <td th:text="${operacion.tipooperacion}"></td>
+                    <td th:text="${operacion.monto}"></td>
+                    <td th:text="${operacion.iddestino}"></td>
+                    <td th:text="${operacion.puestoatencion}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-center">
+            <a th:href="@{/home}" class="btn btn-secondary">Volver</a>
+        </div>
+    </div>
+</body>
+</html>

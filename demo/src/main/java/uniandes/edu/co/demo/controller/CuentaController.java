@@ -1,6 +1,8 @@
 package uniandes.edu.co.demo.controller;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import org.bson.types.ObjectId;
@@ -9,13 +11,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
 import uniandes.edu.co.demo.modelo.Cuenta;
+import uniandes.edu.co.demo.modelo.OperacionBancaria;
 import uniandes.edu.co.demo.modelo.Usuario;
 import uniandes.edu.co.demo.repository.CuentaRepository;
 import uniandes.edu.co.demo.repository.OficinaRepository;
+import uniandes.edu.co.demo.repository.OperacionBancariaRepository;
 import uniandes.edu.co.demo.repository.UsuarioRepository;
 
 @Controller
@@ -27,6 +32,19 @@ public class CuentaController {
     UsuarioRepository usuarioRepository;
     @Autowired
     OficinaRepository oficinaRepository;
+    @Autowired
+    OperacionBancariaRepository operacionBancariaRepository;
+
+
+    @GetMapping("/cuentas")
+    public String cuentas(Model model) {
+    model.addAttribute("cuenta", new Cuenta());
+    
+    model.addAttribute("cuentas", cuentaRepository.findAll());
+    
+    return "cuentas";
+}
+
 
 
 
@@ -90,6 +108,51 @@ public class CuentaController {
             cuentaRepository.save(cuentaExistente);
         }
         return "redirect:/";
+    }
+
+    @GetMapping("/cuentas/extracto/{id}/{fecha}")
+    public String generarExtracto(Model model, @PathVariable("id") String id,@PathVariable("fecha") String fecha ) {
+     
+        System.out.println(id);
+        System.out.println(fecha);
+// Convertir la cadena a objeto Date
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Date fechaInicial;
+            try {
+                fechaInicial = dateFormat.parse(fecha);
+                 // Sumar 30 días
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(fechaInicial);
+            calendar.add(Calendar.DAY_OF_MONTH, 30);
+            Date fechaFinal = calendar.getTime();
+
+            // Formatear la fecha final como string
+            String fechaFinalStr = dateFormat.format(fechaFinal);
+            
+            String conxeros1 = fechaInicial + " 00:00:00";
+            String conxeros = fechaFinalStr + " 00:00:00";
+            
+            System.out.println(conxeros1);
+            System.out.println(conxeros);
+
+
+            List<OperacionBancaria> operaciones =  operacionBancariaRepository.findOperacionesByCuentaAndFecha(new ObjectId(id), conxeros1, conxeros);
+            System.out.println(fechaFinalStr);
+            for(OperacionBancaria op : operaciones){
+                System.out.println(op.getId());
+                System.out.println("a");
+            }
+            model.addAttribute("operaciones", operaciones);
+            } catch (ParseException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+           
+
+       
+    
+    return "consultacuenta";
     }
 
    
