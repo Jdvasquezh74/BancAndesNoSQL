@@ -3,7 +3,6 @@ package uniandes.edu.co.demo.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
