@@ -17,9 +17,9 @@ public interface OperacionBancariaRepository extends MongoRepository<OperacionBa
      @Aggregation(pipeline = {
         "{ $match: { 'cuentaafectada': ?0 } }",
         "{ $addFields: { 'fechaoperacionDate': { $dateFromString: { dateString: '$fechaoperacion', format: '%d/%m/%Y %H:%M:%S' } } } }",
-        "{ $match: { 'fechaoperacionDate': { $gte: ?1, $lt: ?2 } } }"
-    })
-    List<OperacionBancaria> findOperacionesByCuentaAndFecha(ObjectId cuentaId, String startDate, String endDate);
+        "{ $match: { 'fechaoperacionDate': { $gte: { $dateFromString: { dateString: ?1, format: '%Y-%m-%dT%H:%M:%SZ' } }, $lt: { $dateFromString: { dateString: ?2, format: '%Y-%m-%dT%H:%M:%SZ' } } } } }"
+})
+List<OperacionBancaria> findOperacionesByCuentaAndFecha(ObjectId cuentaId, String startDate, String endDate);
 
 }
 

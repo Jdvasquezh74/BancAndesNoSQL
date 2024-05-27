@@ -143,7 +143,7 @@ public class CuentaController {
             // Formatear la fecha final como string
             String fechaFinalStr = dateFormat.format(fechaFinal);
             
-            String conxeros1 = fechaInicial + " 00:00:00";
+            String conxeros1 = fecha + " 00:00:00";
             String conxeros = fechaFinalStr + " 00:00:00";
             
             System.out.println(conxeros1);
@@ -151,16 +151,44 @@ public class CuentaController {
 
 
             List<OperacionBancaria> operaciones =  operacionBancariaRepository.findOperacionesByCuentaAndFecha(new ObjectId(id), conxeros1, conxeros);
-            System.out.println(fechaFinalStr);
+           
             for(OperacionBancaria op : operaciones){
                 System.out.println(op.getId());
                 System.out.println("a");
             }
+            System.out.println(operaciones);
             model.addAttribute("operaciones", operaciones);
             } catch (ParseException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+            /*
+             db.operaciones.aggregate([
+  {
+    "$match": {
+      "cuentaafectada": ObjectId("6653bb88b738e51b7695dbf0")
+    }
+  },
+  {
+    "$addFields": {
+      "fechaoperacionDate": {
+        "$dateFromString": {
+          "dateString": "$fechaoperacion",
+          "format": "%d/%m/%Y %H:%M:%S"
+        }
+      }
+    }
+  },
+  {
+    "$match": {
+      "fechaoperacionDate": {
+        "$gte": ISODate("2024-05-01T00:00:00Z"),
+        "$lt": ISODate("2024-05-31T00:00:00Z")
+      }
+    }
+  }
+]) 
+             */
 
            
 
