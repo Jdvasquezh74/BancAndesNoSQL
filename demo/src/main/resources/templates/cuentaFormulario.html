@@ -28,16 +28,6 @@
         <input type="number" id="saldo" name="saldo" th:field="*{saldo}" required />
         
         
-        
-        
-        <label for="estado">Estado</label>
-        <select id="estado" name="estado" th:field="*{estado}" required>
-            <option value="activada">activada</option>
-            <option value="desactivada">desactivada</option>
-        </select>
-
-
-        
         <label for="oficina">Oficina apertura: </label>
         <select class="form-control" id="oficina" name="oficina" required>
             <option th:each="oficina : ${oficinas}" th:value="${oficina.id}" th:text="${oficina.id}"></option>
