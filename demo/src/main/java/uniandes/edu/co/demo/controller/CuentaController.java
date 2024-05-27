@@ -1,6 +1,8 @@
 package uniandes.edu.co.demo.controller;
 
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import org.bson.types.ObjectId;
@@ -47,6 +49,18 @@ public class CuentaController {
         cuenta.setOperaciones(new ArrayList<ObjectId>());
         usuarioRepository.anadirCuenta(cuenta.getClienteasociado().getId(), cuenta.getId());
         
+         // Obtener la fecha y hora actual
+        LocalDateTime now = LocalDateTime.now();
+        // Definir el formato deseado
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        // Formatear la fecha y hora
+        String formattedDateTime = now.format(formatter);
+        cuenta.setFechaultimaoperacion(formattedDateTime.toString());
+
+        cuenta.setFechacreacioncuenta(formattedDateTime);
+
+        cuenta.setEstado("activada");
+
         ObjectId clienteAsociadoId = cuenta.getClienteasociado().getId();
 
         Optional<Usuario> usuarioOptional = usuarioRepository.findById(clienteAsociadoId);

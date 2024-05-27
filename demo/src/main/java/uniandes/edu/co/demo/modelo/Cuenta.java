@@ -1,5 +1,7 @@
 package uniandes.edu.co.demo.modelo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class Cuenta {
     private Usuario clienteasociado;
     private float saldo;
     private String fechaultimaoperacion;
+    private String fechacreacioncuenta;
     private String estado;
     private List<ObjectId> operaciones; 
     private Oficina oficinaCreacion;
@@ -31,7 +34,14 @@ public class Cuenta {
     public Cuenta(Integer saldo, Usuario clienteasociado, Oficina oficinacreacion, String tipo) {
         this.saldo = saldo;
         this.clienteasociado = clienteasociado;
-        this.fechaultimaoperacion = null;
+        //Fecha de hoy
+        LocalDateTime now = LocalDateTime.now();
+        // Definir el formato deseado
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        // Formatear la fecha y hora
+        String formattedDateTime = now.format(formatter);
+        this.fechaultimaoperacion = formattedDateTime.toString();
+        this.fechacreacioncuenta = formattedDateTime.toString();
         this.estado = "activada";
         this.operaciones = new ArrayList<>();
         this.oficinaCreacion = oficinacreacion;
@@ -78,6 +88,14 @@ public class Cuenta {
         this.fechaultimaoperacion = fechaultimaoperacion;
     }
 
+    public String getFechacreacioncuenta() {
+        return fechacreacioncuenta;
+    }
+
+    public void setFechacreacioncuenta(String fechacreacioncuenta) {
+        this.fechacreacioncuenta = fechacreacioncuenta;
+    }
+
     public String getEstado() {
         return estado;
     }
@@ -102,5 +120,6 @@ public class Cuenta {
         this.oficinaCreacion = oficinaCreacion;
     }
 
+    
    
 }
