@@ -129,7 +129,7 @@ public class CuentaController {
      
         System.out.println(id);
         System.out.println(fecha);
-// Convertir la cadena a objeto Date
+        // Convertir la cadena a objeto Date
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             Date fechaInicial;
             try {
